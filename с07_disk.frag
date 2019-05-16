@@ -3,10 +3,6 @@
 precision mediump float;
 #endif
 
-#define PI 3.1415926536
-
-#define LERP(a, b, t)
-
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
@@ -15,6 +11,15 @@ float disk(in vec2 st, in vec2 pos, in float size) {
     float d = distance(pos, st);
     
     return smoothstep(d, d + 0.008, size / 2. + 0.004);
+}
+
+float disk2(in vec2 st, in vec2 pos, in float size) {
+    vec2 d = st-pos;
+    
+    size *= size;
+    return 1. - smoothstep(
+        0.99*size, 1.01*size,
+        4.*dot(d,d));
 }
 
 float heartbeat(float t, float duration) {
@@ -50,8 +55,7 @@ void main(){
     vec3 color = vec3(0);
 
     float r = .75 + .1 * heartbeat(u_time, 1.3);
-    
-    color = mix(color, vec3(1.,.667,.985), disk(st, vec2(.5,.5), r));
-    
+    color = mix(color, vec3(1.,.667,.985), disk2(st, vec2(.5,.5), r));
+        
     gl_FragColor = vec4( color, 1.0 );
 }
