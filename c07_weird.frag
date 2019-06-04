@@ -18,6 +18,7 @@ float plot(float t, float pct, float m) {
 
 void main(){
     vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    st.x *= u_resolution.x/u_resolution.y;
     vec2 pos = vec2(0.5)-st;
 
     float r = length(pos)*2.0;

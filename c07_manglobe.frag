@@ -39,6 +39,7 @@ float ray(vec2 pos, float a, float m) {
 
 void main(){
     vec2 st = gl_FragCoord.xy/u_resolution.xy;
+    st.x *= u_resolution.x/u_resolution.y;
     vec3 color = vec3(.973, .976, .957);
 
     vec2 pos = st-vec2(0.5);
